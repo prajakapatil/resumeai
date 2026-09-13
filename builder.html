@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">ResumeAI - Premium Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; border: 2px solid transparent; background-clip: padding-box; }
+        
+        .bg-mesh {
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,0.03) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.03) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.03) 0, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .workspace-bg {
+            background: #e2e8f0;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+            border-radius: 0 !important;
+        }
+
+        .a4-paper {
+            width: 210mm;
+            height: 296mm;
+            max-height: 296mm;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 0 !important;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        .tpl-modern { padding: 28px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-modern .resume-name { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.1rem; letter-spacing: -1px;}
+        .tpl-modern .resume-title { font-size: 1rem; color: #6366f1; font-weight: 500; margin-bottom: 0.6rem;}
+        .tpl-modern .section-heading { font-size: 0.9rem; font-weight: 700; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.15rem; margin-top: 0.8rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.1em;}
+        .tpl-modern .section-content { color: #475569; font-size: 0.8rem; line-height: 1.35; text-align: justify; }
+        
+        .tpl-classic { padding: 28px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-classic .resume-name { font-size: 2rem; font-weight: 700; color: #111; text-align: center; border-bottom: 2px solid #111; padding-bottom: 0.6rem; margin-bottom: 0.4rem;}
+        .tpl-classic .section-heading { font-size: 0.95rem; font-weight: 700; color: #111; margin-top: 0.9rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 1px;}
+        .tpl-classic .section-content { color: #333; font-size: 0.8rem; line-height: 1.4; text-align: justify; }
+
+        .tpl-minimalist { padding: 28px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-minimalist .resume-name { font-size: 1.6rem; font-weight: 300; color: #18181b; margin-bottom: 0.1rem; letter-spacing: 1px;}
+        .tpl-minimalist .section-heading { font-size: 0.75rem; font-weight: 600; color: #18181b; margin-top: 0.9rem; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 1.5px;}
+        .tpl-minimalist .section-content { color: #52525b; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        .tpl-executive { padding: 28px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-executive .resume-name { font-size: 2.1rem; font-weight: 700; color: #09090b; margin-bottom: 0.1rem;}
+        .tpl-executive .section-heading { font-size: 0.9rem; font-weight: 700; color: #09090b; margin-top: 0.9rem; margin-bottom: 0.4rem; border-bottom: 1px solid #d4d4d8; padding-bottom: 0.15rem;}
+        .tpl-executive .section-content { color: #27272a; font-size: 0.8rem; line-height: 1.35; text-align: justify; }
+
+        .tpl-creative { 
+            padding: 0 !important; 
+            display: flex !important; 
+            height: 296mm !important; 
+            width: 210mm !important;
+            overflow: hidden !important; 
+            margin: 0 !important;
+        }
+        .tpl-creative .resume-name { font-size: 1.3rem; font-weight: 800; color: white; margin-bottom: 0.1rem; line-height: 1.2; }
+        .tpl-creative .section-heading { font-size: 0.75rem; font-weight: 700; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.1rem; margin-top: 0.7rem; margin-bottom: 0.3rem; text-transform: uppercase; }
+        .tpl-creative .section-content { color: #475569; font-size: 0.72rem; line-height: 1.3; text-align: justify; }
+
+        .tpl-codecraft { padding: 28px 36px; background: #fafafa; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-codecraft .resume-name { font-size: 1.8rem; font-weight: 700; color: #059669; margin-bottom: 0.1rem; }
+        .tpl-codecraft .section-heading { font-size: 0.85rem; font-weight: 700; color: #059669; border-left: 4px solid #059669; padding-left: 6px; margin-top: 0.9rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .tpl-codecraft .section-content { color: #1f2937; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        .tpl-startup { padding: 28px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-startup .resume-name { font-size: 2.2rem; font-weight: 900; color: #7c3aed; margin-bottom: 0.1rem; }
+        .tpl-startup .section-heading { font-size: 0.85rem; font-weight: 800; color: #7c3aed; background: #f3e8ff; padding: 3px 8px; border-radius: 6px; margin-top: 0.9rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .tpl-startup .section-content { color: #374151; font-size: 0.8rem; line-height: 1.35; text-align: justify; }
+
+        .tpl-academic { padding: 30px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-academic .resume-name { font-size: 1.9rem; font-weight: 700; color: #0f2a4a; text-align: center; margin-bottom: 0.3rem; }
+        .tpl-academic .section-heading { font-size: 0.85rem; font-weight: 700; color: #0f2a4a; border-bottom: 1.5px solid #0f2a4a; padding-bottom: 0.1rem; margin-top: 0.8rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .tpl-academic .section-content { color: #1e293b; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        /* LaTeX Templates */
+        .latex-classic { padding: 32px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Times New Roman', serif; color: #111; }
+        .latex-classic .resume-name { font-size: 2.2rem; font-weight: bold; text-align: center; border-bottom: 1px solid #111; padding-bottom: 6px; margin-bottom: 0.4rem; }
+        .latex-classic .section-heading { font-size: 0.95rem; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #111; margin-top: 1rem; margin-bottom: 0.4rem; }
+        .latex-classic .section-content { color: #222; font-size: 0.82rem; line-height: 1.4; text-align: justify; }
+
+        .latex-modern { padding: 32px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Roboto', sans-serif; color: #0f172a; }
+        .latex-modern .resume-name { font-size: 2.3rem; font-weight: 700; color: #1e3a8a; margin-bottom: 0.1rem; }
+        .latex-modern .section-heading { font-size: 0.9rem; font-weight: 700; color: #1e3a8a; border-bottom: 2px solid #1e3a8a; padding-bottom: 0.15rem; margin-top: 1rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .latex-modern .section-content { color: #334155; font-size: 0.8rem; line-height: 1.35; text-align: justify; }
+
+        .latex-minimal { padding: 32px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Inter', sans-serif; color: #27272a; }
+        .latex-minimal .resume-name { font-size: 1.8rem; font-weight: 300; letter-spacing: 2px; margin-bottom: 0.1rem; }
+        .latex-minimal .section-heading { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #d4d4d8; padding-bottom: 0.1rem; margin-top: 1rem; margin-bottom: 0.4rem; }
+        .latex-minimal .section-content { color: #3f3f46; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        .latex-executive { padding: 32px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Merriweather', serif; color: #1c1917; }
+        .latex-executive .resume-name { font-size: 2.2rem; font-weight: 700; text-align: center; margin-bottom: 0.2rem; }
+        .latex-executive .section-heading { font-size: 0.9rem; font-weight: 700; text-align: center; border-top: 1px solid #78716c; border-bottom: 1px solid #78716c; padding: 3px 0; margin-top: 1rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .latex-executive .section-content { color: #292524; font-size: 0.8rem; line-height: 1.4; text-align: justify; }
+
+        .latex-tech { padding: 32px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Courier New', Courier, monospace; color: #065f46; background: #fdfdfd; }
+        .latex-tech .resume-name { font-size: 2rem; font-weight: bold; margin-bottom: 0.1rem; color: #065f46; }
+        .latex-tech .section-heading { font-size: 0.85rem; font-weight: bold; border-left: 3px solid #059669; padding-left: 8px; margin-top: 1rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .latex-tech .section-content { color: #111827; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        .exp-item, .proj-item, .edu-item { margin-bottom: 0.6rem; }
+        .exp-header, .proj-header, .edu-header { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.85rem; font-weight: bold; color: #111; }
+        .exp-sub, .proj-sub, .edu-sub { font-size: 0.8rem; font-weight: 600; color: #334155; margin-bottom: 0.15rem; }
+        .exp-desc, .proj-desc, .edu-desc { font-size: 0.78rem; color: #475569; line-height: 1.35; white-space: pre-wrap; }
+
+        @media print {
+            @page { size: A4; margin: 0mm !important; }
+            body, html { background: white !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            #navbar, #sidebar { display: none !important; }
+            main { padding: 0 !important; margin: 0 !important; display: block !important; width: 100% !important; }
+            .workspace-bg { background: white !important; padding: 0 !important; }
+            
+            .a4-paper { 
+                box-shadow: none !important; 
+                border: none !important; 
+                outline: none !important; 
+                border-radius: 0 !important;
+                margin: 0 !important; 
+                width: 210mm !important; 
+                height: 297mm !important; 
+                max-height: 297mm !important; 
+                overflow: hidden !important; 
+                page-break-after: avoid !important; 
+                page-break-inside: avoid !important; 
+            }
+
+            .tpl-creative {
+                height: 297mm !important;
+                max-height: 297mm !important;
+                width: 210mm !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .tpl-creative > div:first-child {
+                height: 297mm !important;
+                min-height: 297mm !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-mesh font-sans antialiased text-gray-800 flex flex-col min-h-screen">
+
+    <nav id="navbar" class="bg-white/80 backdrop-blur-md border-b border-gray-200/80 sticky top-0 z-50 shadow-sm transition-all">
+        <div class="max-w-[1600px] mx-auto px-6">
+            <div class="flex justify-between h-[72px] items-center">
+                <a href="index.html" class="flex items-center gap-3 cursor-pointer group" style="text-decoration: none;">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-200 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-file-signature text-lg"></i>
+                    </div>
+                    <span class="text-2xl font-extrabold text-gray-900 tracking-tight">Resume<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">AI.</span></span>
+                </a>
+                <div class="flex items-center gap-5">
+                    <button onclick="handleGoogleSignIn()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full font-semibold transition shadow-md flex items-center gap-2 text-sm cursor-pointer">
+                        <i class="fa-brands fa-google"></i> Sign in
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-8 flex flex-col lg:flex-row gap-8">
+        
+        <div id="sidebar" class="w-full lg:w-[480px] bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl shadow-slate-200/50 border border-white flex flex-col overflow-hidden h-[calc(100vh-130px)] sticky top-[100px]">
+            
+            <div class="p-6 border-b border-gray-100 bg-gradient-to-b from-slate-50 to-white flex flex-col gap-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-900">Dashboard</h2>
+                        <p class="text-sm text-gray-500">Edit details live</p>
+                    </div>
+                    <button onclick="resetCurrentTemplate()" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition flex items-center justify-center shadow-inner" title="Reset Data">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Template</label>
+                        <select id="template-select" class="w-full text-xs border border-slate-200 rounded-xl py-2 px-2 focus:ring-2 focus:ring-indigo-500 bg-white font-semibold text-slate-700 shadow-sm outline-none" onchange="state.template = this.value; saveState(); render();">
+                            <option value="tpl-modern">Modern Pro</option>
+                            <option value="tpl-classic">Classic Corporate</option>
+                            <option value="tpl-minimalist">Minimalist</option>
+                            <option value="tpl-executive">Executive</option>
+                            <option value="tpl-creative">Creative Split</option>
+                            <option value="tpl-codecraft">CodeCraft</option>
+                            <option value="tpl-startup">Bold Startup</option>
+                            <option value="tpl-academic">Academic Structured</option>
+                            <option value="latex-classic">LaTeX Classic</option>
+                            <option value="latex-modern">LaTeX Modern</option>
+                            <option value="latex-minimal">LaTeX Minimalist</option>
+                            <option value="latex-executive">LaTeX Executive</option>
+                            <option value="latex-tech">LaTeX Tech</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Select Font</label>
+                        <select id="font-select" class="w-full text-xs border border-slate-200 rounded-xl py-2 px-2 focus:ring-2 focus:ring-indigo-500 bg-white font-semibold text-slate-700 shadow-sm outline-none" onchange="state.font = this.value; saveState(); render();">
+                            <option value="'Poppins', sans-serif">Poppins</option>
+                            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                            <option value="'Calibri', Arial, sans-serif">Calibri</option>
+                            <option value="Arial, Helvetica, sans-serif">Arial</option>
+                            <option value="Georgia, serif">Georgia</option>
+                            <option value="'Garamond', serif">Garamond</option>
+                            <option value="'Inter', sans-serif">Inter</option>
+                            <option value="'Roboto', sans-serif">Roboto</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6" id="form-container">
+                <!-- Personal Details Section -->
+                <div class="mb-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600"><i class="fa-solid fa-user text-xs"></i></div>
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Personal Details</h3>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <input type="text" id="p-name" placeholder="Khushi Singh" class="w-full p-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition outline-none text-slate-700 font-medium placeholder-slate-400" oninput="updatePersonal('name', this.value)">
+                        <input type="text" id="p-title" placeholder="Software Engineer" class="w-full p-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition outline-none text-slate-700 font-medium placeholder-slate-400" oninput="updatePersonal('title', this.value)">
+                        <input type="email" id="p-email" placeholder="khushi.singh@example.com" class="w-full p-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition outline-none text-slate-700 font-medium placeholder-slate-400" oninput="updatePersonal('email', this.value)">
+                        <input type="text" id="p-phone" placeholder="+91 98765 43210" class="w-full p-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition outline-none text-slate-700 font-medium placeholder-slate-400" oninput="updatePersonal('phone', this.value)">
+                        <input type="text" id="p-location" placeholder="Mumbai, India" class="w-full p-3.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition outline-none text-slate-700 font-medium placeholder-slate-400" oninput="updatePersonal('location', this.value)">
+                    </div>
+                </div>
+
+                <!-- Career Objective / Summary Section -->
+                <div id="summary-form-container"></div>
+
+                <!-- Education Section -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-purple-600"><i class="fa-solid fa-graduation-cap text-xs"></i></div>
+                            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Education</h3>
+                        </div>
+                        <button onclick="addEducation()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus text-[10px]"></i> Add Education
+                        </button>
+                    </div>
+                    <div id="education-container" class="space-y-4"></div>
+                </div>
+
+                <!-- Professional Experience Section -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600"><i class="fa-solid fa-briefcase text-xs"></i></div>
+                            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Work Experience</h3>
+                        </div>
+                        <button onclick="addExperience()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus text-[10px]"></i> Add Experience
+                        </button>
+                    </div>
+                    <div id="experience-container" class="space-y-4"></div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><i class="fa-solid fa-code text-xs"></i></div>
+                            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Projects</h3>
+                        </div>
+                        <button onclick="addProject()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus text-[10px]"></i> Add Project
+                        </button>
+                    </div>
+                    <div id="projects-container" class="space-y-4"></div>
+                </div>
+
+                <!-- Languages Section -->
+                <div id="languages-form-container"></div>
+
+                <!-- Declaration Section -->
+                <div id="declaration-form-container"></div>
+
+                <!-- Other Custom Sections -->
+                <div id="dynamic-sections"></div>
+
+                <button onclick="addSection()" class="w-full py-4 mt-2 border-2 border-dashed border-indigo-200 text-indigo-600 rounded-xl hover:bg-indigo-50 hover:border-indigo-400 transition font-semibold flex items-center justify-center gap-2 group">
+                    <div class="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center group-hover:bg-indigo-200 transition"><i class="fa-solid fa-plus text-sm"></i></div> 
+                    Add Custom Section
+                </button>
+            </div>
+
+            <div class="p-6 border-t border-slate-100 bg-white/80">
+                <!-- Download button triggers custom print function with dynamic file naming -->
+                <button onclick="downloadResume()" class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg shadow-indigo-200 transition-all transform hover:-translate-y-0.5 flex justify-center items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-file-pdf text-lg"></i> Download
+                </button>
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 flex justify-center pb-20 workspace-bg rounded-2xl border border-slate-200 shadow-inner">
+            <div id="resume-preview" class="a4-paper tpl-modern"></div>
+        </div>
+    </main>
+
+    <script>
+        let savedState = localStorage.getItem('resumeState');
+        let selectedFromTemplates = localStorage.getItem('selectedTemplate');
+
+        let state = savedState ? JSON.parse(savedState) : {
+            template: 'tpl-modern',
+            font: "'Poppins', sans-serif",
+            personal: { 
+                name: 'Khushi Singh', 
+                title: 'Software Engineer', 
+                email: 'khushi.singh@example.com',
+                phone: '+91 98765 43210',
+                location: 'Mumbai, India'
+            },
+            educations: [
+                { id: 1, school: 'University Institute', degree: 'B.Tech in Computer Science', duration: 'Graduated: May 2025 | CGPA: 8.8/10' }
+            ],
+            experiences: [
+                { id: 1, role: 'Retail Value Executive', company: 'ABC Solutions', duration: 'Jan 2022 - Current', desc: '• Managed daily sales operations and increased customer retention by 18% through proactive engagement.\n• Maintained monthly sales targets and resolved customer service inquiries efficiently.' }
+            ],
+            projects: [
+                { id: 1, name: 'ResumeAI SaaS Builder', tech: 'Next.js, Tailwind CSS, FastAPI', desc: '• Built a full-stack resume builder with 13+ professional templates and live preview studio.' }
+            ],
+            sections: [
+                { id: 1, title: 'Career Objective / Summary', content: 'Results-driven Software Engineer with over 3+ years of experience designing and developing scalable web applications. Passionate about writing clean code and delivering user-centric solutions.', isVisible: true },
+                { id: 2, title: 'Technical Skills', content: '• JavaScript, TypeScript, React, Next.js, Python, Node.js\n• Database Management, Git, Tailwind CSS, REST APIs', isVisible: true },
+                { id: 3, title: 'Languages', content: '• English, Hindi, Marathi', isVisible: true },
+                { id: 4, title: 'Declaration', content: 'I hereby declare that the information furnished above is true to the best of my knowledge and belief.', isVisible: true }
+            ]
+        };
+
+        if (selectedFromTemplates) {
+            state.template = selectedFromTemplates;
+            localStorage.removeItem('selectedTemplate');
+            saveState();
+        }
+
+        function saveState() {
+            localStorage.setItem('resumeState', JSON.stringify(state));
+        }
+
+        function resetCurrentTemplate() {
+            const currentTpl = state.template;
+            localStorage.clear();
+            state.template = currentTpl;
+            saveState();
+            location.reload();
+        }
+
+        function updatePersonal(field, value) { 
+            state.personal[field] = value; 
+            saveState();
+            renderPreview(); 
+        }
+
+        // Custom download function that sets document title to user's name for file naming
+        function downloadResume() {
+            const userName = state.personal.name ? state.personal.name.trim().replace(/\s+/g, '_') : 'Resume';
+            document.title = `${userName}_Resume`;
+            window.print();
+        }
+
+        function addEducation() {
+            const newId = Date.now();
+            state.educations.push({ id: newId, school: 'Institute Name', degree: 'Degree / Course Name', duration: 'Duration / CGPA' });
+            saveState();
+            render();
+        }
+
+        function deleteEducation(id) {
+            state.educations = state.educations.filter(e => e.id !== id);
+            saveState();
+            render();
+        }
+
+        function updateEducation(id, field, value) {
+            const edu = state.educations.find(e => e.id === id);
+            if (edu) edu[field] = value;
+            saveState();
+            renderPreview();
+        }
+
+        function addExperience() {
+            const newId = Date.now();
+            state.experiences.push({ id: newId, role: 'Software Engineer', company: 'Tech Corp', duration: '2023 - Present', desc: '• Developed core features and improved system latency by 20%.' });
+            saveState();
+            render();
+        }
+
+        function deleteExperience(id) {
+            state.experiences = state.experiences.filter(e => e.id !== id);
+            saveState();
+            render();
+        }
+
+        function updateExperience(id, field, value) {
+            const exp = state.experiences.find(e => e.id === id);
+            if (exp) exp[field] = value;
+            saveState();
+            renderPreview();
+        }
+
+        function addProject() {
+            const newId = Date.now();
+            state.projects.push({ id: newId, name: 'E-Commerce Platform', tech: 'React, Node.js, MongoDB', desc: '• Built full-stack e-commerce store with secure payment gateway integration.' });
+            saveState();
+            render();
+        }
+
+        function deleteProject(id) {
+            state.projects = state.projects.filter(p => p.id !== id);
+            saveState();
+            render();
+        }
+
+        function updateProject(id, field, value) {
+            const proj = state.projects.find(p => p.id === id);
+            if (proj) proj[field] = value;
+            saveState();
+            renderPreview();
+        }
+
+        function addSection() {
+            const newId = Date.now();
+            state.sections.push({ id: newId, title: 'New Section', content: '', isVisible: true });
+            saveState();
+            render();
+        }
+
+        function toggleSection(id) {
+            const sec = state.sections.find(s => s.id === id);
+            if (sec) sec.isVisible = !sec.isVisible;
+            saveState();
+            render();
+        }
+
+        function deleteSection(id) {
+            state.sections = state.sections.filter(s => s.id !== id);
+            saveState();
+            render();
+        }
+
+        function updateSection(id, field, value) {
+            const sec = state.sections.find(s => s.id === id);
+            if (sec) sec[field] = value;
+            saveState();
+            renderPreview();
+        }
+
+        function handleGoogleSignIn() {
+            const email = prompt("Enter your Google account email to sign in:");
+            if (email) {
+                alert(`Successfully signed in with Google as ${email}`);
+            }
+        }
+
+        function renderForm() {
+            const summaryContainer = document.getElementById('summary-form-container');
+            const eduContainer = document.getElementById('education-container');
+            const expContainer = document.getElementById('experience-container');
+            const projContainer = document.getElementById('projects-container');
+            const langContainer = document.getElementById('languages-form-container');
+            const decContainer = document.getElementById('declaration-form-container');
+            const otherContainer = document.getElementById('dynamic-sections');
+
+            summaryContainer.innerHTML = '';
+            eduContainer.innerHTML = '';
+            expContainer.innerHTML = '';
+            projContainer.innerHTML = '';
+            langContainer.innerHTML = '';
+            decContainer.innerHTML = '';
+            otherContainer.innerHTML = '';
+
+            state.sections.forEach(sec => {
+                const titleLower = sec.title.toLowerCase();
+                if (titleLower.includes('summary') || titleLower.includes('objective')) {
+                    const isHiddenStyle = !sec.isVisible ? 'opacity-50 grayscale' : '';
+                    const icon = sec.isVisible ? 'fa-eye' : 'fa-eye-slash text-slate-300';
+                    summaryContainer.innerHTML = `
+                        <div class="mb-8">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600"><i class="fa-solid fa-bullseye text-xs"></i></div>
+                                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Career Objective / Summary</h3>
+                            </div>
+                            <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 group ${isHiddenStyle}">
+                                <div class="flex justify-between items-center mb-3">
+                                    <input type="text" value="${sec.title}" oninput="updateSection(${sec.id}, 'title', this.value)" class="font-bold text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none w-2/3 transition px-1 py-0.5 rounded-sm text-xs">
+                                    <div class="flex gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
+                                        <button onclick="toggleSection(${sec.id})" class="w-7 h-7 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition" title="Hide/Show"><i class="fa-solid ${icon} text-xs"></i></button>
+                                        <button onclick="deleteSection(${sec.id})" class="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition" title="Delete"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                                    </div>
+                                </div>
+                                <textarea rows="3" oninput="updateSection(${sec.id}, 'content', this.value)" class="w-full p-3 bg-slate-50/50 border border-slate-100 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 text-xs transition outline-none resize-y text-slate-600 placeholder-slate-400 leading-relaxed">${sec.content}</textarea>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            state.educations.forEach((edu, index) => {
+                eduContainer.innerHTML += `
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-purple-600">Education #${index + 1}</span>
+                            <button onclick="deleteEducation(${edu.id})" class="text-slate-400 hover:text-red-600 transition p-1" title="Delete"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                        </div>
+                        <div class="space-y-2.5">
+                            <input type="text" value="${edu.school}" placeholder="School / University Name" oninput="updateEducation(${edu.id}, 'school', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-800 outline-none focus:bg-white focus:ring-1 focus:ring-purple-500">
+                            <input type="text" value="${edu.degree}" placeholder="Degree / Course Name" oninput="updateEducation(${edu.id}, 'degree', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 outline-none focus:bg-white focus:ring-1 focus:ring-purple-500">
+                            <input type="text" value="${edu.duration}" placeholder="Duration / CGPA" oninput="updateEducation(${edu.id}, 'duration', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 outline-none focus:bg-white focus:ring-1 focus:ring-purple-500">
+                        </div>
+                    </div>
+                `;
+            });
+
+            state.experiences.forEach((exp, index) => {
+                expContainer.innerHTML += `
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-emerald-600">Experience #${index + 1}</span>
+                            <button onclick="deleteExperience(${exp.id})" class="text-slate-400 hover:text-red-600 transition p-1" title="Delete"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                        </div>
+                        <div class="space-y-2.5">
+                            <input type="text" value="${exp.role}" placeholder="Job Title" oninput="updateExperience(${exp.id}, 'role', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-800 outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500">
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="text" value="${exp.company}" placeholder="Company Name" oninput="updateExperience(${exp.id}, 'company', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500">
+                                <input type="text" value="${exp.duration}" placeholder="Duration" oninput="updateExperience(${exp.id}, 'duration', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500">
+                            </div>
+                            <textarea rows="2" placeholder="Bullet points" oninput="updateExperience(${exp.id}, 'desc', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 outline-none focus:bg-white focus:ring-1 focus:ring-emerald-500">${exp.desc}</textarea>
+                        </div>
+                    </div>
+                `;
+            });
+
+            state.projects.forEach((proj, index) => {
+                projContainer.innerHTML += `
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold text-blue-600">Project #${index + 1}</span>
+                            <button onclick="deleteProject(${proj.id})" class="text-slate-400 hover:text-red-600 transition p-1" title="Delete"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                        </div>
+                        <div class="space-y-2.5">
+                            <input type="text" value="${proj.name}" placeholder="Project Name" oninput="updateProject(${proj.id}, 'name', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-800 outline-none focus:bg-white focus:ring-1 focus:ring-blue-500">
+                            <input type="text" value="${proj.tech}" placeholder="Technologies" oninput="updateProject(${proj.id}, 'tech', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 outline-none focus:bg-white focus:ring-1 focus:ring-blue-500">
+                            <textarea rows="2" placeholder="Project description" oninput="updateProject(${proj.id}, 'desc', this.value)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 outline-none focus:bg-white focus:ring-1 focus:ring-blue-500">${proj.desc}</textarea>
+                        </div>
+                    </div>
+                `;
+            });
+
+            state.sections.forEach(sec => {
+                const titleLower = sec.title.toLowerCase();
+                const isHiddenStyle = !sec.isVisible ? 'opacity-50 grayscale' : '';
+                const icon = sec.isVisible ? 'fa-eye' : 'fa-eye-slash text-slate-300';
+
+                if (titleLower.includes('language')) {
+                    langContainer.innerHTML = `
+                        <div class="mb-8">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center text-teal-600"><i class="fa-solid fa-language text-xs"></i></div>
+                                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Languages</h3>
+                            </div>
+                            <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 group ${isHiddenStyle}">
+                                <div class="flex justify-between items-center mb-3">
+                                    <input type="text" value="${sec.title}" oninput="updateSection(${sec.id}, 'title', this.value)" class="font-bold text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none w-2/3 transition px-1 py-0.5 rounded-sm text-xs">
+                                    <div class="flex gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
+                                        <button onclick="toggleSection(${sec.id})" class="w-7 h-7 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition" title="Hide/Show"><i class="fa-solid ${icon} text-xs"></i></button>
+                                        <button onclick="deleteSection(${sec.id})" class="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition" title="Delete"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                                    </div>
+                                </div>
+                                <textarea rows="2" oninput="updateSection(${sec.id}, 'content', this.value)" class="w-full p-3 bg-slate-50/50 border border-slate-100 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 text-xs transition outline-none resize-y text-slate-600 placeholder-slate-400 leading-relaxed">${sec.content}</textarea>
+                            </div>
+                        </div>
+                    `;
+                } else if (titleLower.includes('declaration')) {
+                    decContainer.innerHTML = `
+                        <div class="mb-8">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center text-rose-600"><i class="fa-solid fa-file-contract text-xs"></i></div>
+                                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Declaration</h3>
+                            </div>
+                            <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 group ${isHiddenStyle}">
+                                <div class="flex justify-between items-center mb-3">
+                                    <input type="text" value="${sec.title}" oninput="updateSection(${sec.id}, 'title', this.value)" class="font-bold text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none w-2/3 transition px-1 py-0.5 rounded-sm text-xs">
+                                    <div class="flex gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
+                                        <button onclick="toggleSection(${sec.id})" class="w-7 h-7 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition" title="Hide/Show"><i class="fa-solid ${icon} text-xs"></i></button>
+                                        <button onclick="deleteSection(${sec.id})" class="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition" title="Delete"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                                    </div>
+                                </div>
+                                <textarea rows="2" oninput="updateSection(${sec.id}, 'content', this.value)" class="w-full p-3 bg-slate-50/50 border border-slate-100 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 text-xs transition outline-none resize-y text-slate-600 placeholder-slate-400 leading-relaxed">${sec.content}</textarea>
+                            </div>
+                        </div>
+                    `;
+                } else if (!titleLower.includes('summary') && !titleLower.includes('objective')) {
+                    if (otherContainer.innerHTML.includes('Other Sections</h3>') === false) {
+                        otherContainer.innerHTML = `
+                            <div class="flex items-center gap-2 mb-4 mt-6">
+                                <div class="w-6 h-6 rounded-full bg-violet-100 flex items-center justify-center text-violet-600"><i class="fa-solid fa-layer-group text-xs"></i></div>
+                                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Other Sections</h3>
+                            </div>
+                        `;
+                    }
+                    otherContainer.innerHTML += `
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 mb-4 shadow-sm hover:shadow-md transition-all duration-300 group ${isHiddenStyle}">
+                            <div class="flex justify-between items-center mb-3">
+                                <input type="text" value="${sec.title}" oninput="updateSection(${sec.id}, 'title', this.value)" class="font-bold text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-200 focus:border-indigo-500 focus:outline-none w-2/3 transition px-1 py-0.5 rounded-sm text-xs">
+                                <div class="flex gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <button onclick="toggleSection(${sec.id})" class="w-7 h-7 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition" title="Hide/Show"><i class="fa-solid ${icon} text-xs"></i></button>
+                                    <button onclick="deleteSection(${sec.id})" class="w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:bg-red-50 hover:text-red-600 transition" title="Delete"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                                </div>
+                            </div>
+                            <textarea rows="3" oninput="updateSection(${sec.id}, 'content', this.value)" class="w-full p-3 bg-slate-50/50 border border-slate-100 rounded-lg focus:bg-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 text-xs transition outline-none resize-y text-slate-600 placeholder-slate-400 leading-relaxed">${sec.content}</textarea>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        function renderPreview() {
+            const preview = document.getElementById('resume-preview');
+            preview.className = `a4-paper ${state.template}`;
+            preview.style.fontFamily = state.font;
+
+            let summaryHtml = '';
+            let languagesHtml = '';
+            let declarationHtml = '';
+            let otherSections = [];
+
+            state.sections.forEach(sec => {
+                if (sec.isVisible) {
+                    const titleLower = sec.title.toLowerCase();
+                    if (titleLower.includes('summary') || titleLower.includes('objective')) {
+                        summaryHtml += `
+                            <div class="section-heading">${sec.title}</div>
+                            <div class="section-content whitespace-pre-wrap">${sec.content}</div>
+                        `;
+                    } else if (titleLower.includes('language')) {
+                        languagesHtml += `
+                            <div class="section-heading">${sec.title}</div>
+                            <div class="section-content whitespace-pre-wrap">${sec.content}</div>
+                        `;
+                    } else if (titleLower.includes('declaration')) {
+                        declarationHtml += `
+                            <div class="section-heading">${sec.title}</div>
+                            <div class="section-content whitespace-pre-wrap">${sec.content}</div>
+                        `;
+                    } else {
+                        otherSections.push(sec);
+                    }
+                }
+            });
+
+            let eduHtml = '';
+            if (state.educations.length > 0) {
+                eduHtml += `<div class="section-heading">Education</div>`;
+                state.educations.forEach(edu => {
+                    eduHtml += `
+                        <div class="edu-item">
+                            <div class="edu-header">
+                                <span style="font-weight: 700; color: #111;">${edu.school}</span>
+                                <span style="font-weight: 500; font-size: 0.75rem; color: #555;">${edu.duration}</span>
+                            </div>
+                            <div class="edu-sub" style="font-weight: 600; color: #334155;">${edu.degree}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            let expHtml = '';
+            if (state.experiences.length > 0) {
+                expHtml += `<div class="section-heading">Professional Experience</div>`;
+                state.experiences.forEach(exp => {
+                    expHtml += `
+                        <div class="exp-item">
+                            <div class="exp-header">
+                                <span style="font-weight: 700; color: #111;">${exp.role}</span>
+                                <span style="font-weight: 500; font-size: 0.75rem; color: #555;">${exp.duration}</span>
+                            </div>
+                            <div class="exp-sub" style="font-weight: 600; color: #334155;">${exp.company}</div>
+                            <div class="exp-desc">${exp.desc}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            let projHtml = '';
+            if (state.projects.length > 0) {
+                projHtml += `<div class="section-heading">Projects</div>`;
+                state.projects.forEach(proj => {
+                    projHtml += `
+                        <div class="proj-item">
+                            <div class="proj-header">
+                                <span style="font-weight: 700; color: #111;">${proj.name}</span>
+                            </div>
+                            <div class="proj-sub" style="font-weight: 600; color: #334155;">${proj.tech}</div>
+                            <div class="proj-desc">${proj.desc}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            let restSectionsHtml = '';
+            otherSections.forEach(sec => {
+                restSectionsHtml += `
+                    <div class="section-heading">${sec.title}</div>
+                    <div class="section-content whitespace-pre-wrap">${sec.content}</div>
+                `;
+            });
+
+            let standardSectionsHtml = summaryHtml + eduHtml + expHtml + projHtml + restSectionsHtml + languagesHtml + declarationHtml;
+
+            if (state.template === 'tpl-creative') {
+                let leftHtml = '';
+                if (languagesHtml) {
+                    leftHtml += `
+                        <div style="font-size: 0.75rem; font-weight: 700; color: #818cf8; border-bottom: 1px solid #334155; padding-bottom: 0.1rem; margin-top: 0.8rem; margin-bottom: 0.3rem; text-transform: uppercase;">Languages</div>
+                        <div style="color: #cbd5e1; font-size: 0.7rem; line-height: 1.35; white-space: pre-wrap; text-align: justify;">${state.sections.find(s => s.title.toLowerCase().includes('language'))?.content || ''}</div>
+                    `;
+                }
+
+                state.sections.forEach(sec => {
+                    if (sec.isVisible) {
+                        const titleLower = sec.title.toLowerCase();
+                        if (titleLower.includes('skill')) {
+                            leftHtml += `
+                                <div style="font-size: 0.75rem; font-weight: 700; color: #818cf8; border-bottom: 1px solid #334155; padding-bottom: 0.1rem; margin-top: 0.8rem; margin-bottom: 0.3rem; text-transform: uppercase;">${sec.title}</div>
+                                <div style="color: #cbd5e1; font-size: 0.7rem; line-height: 1.35; white-space: pre-wrap; text-align: justify;">${sec.content}</div>
+                            `;
+                        }
+                    }
+                });
+
+                let creativeRightHtml = summaryHtml + eduHtml + expHtml + projHtml + restSectionsHtml + declarationHtml;
+
+                preview.innerHTML = `
+                    <div style="display: flex; height: 296mm; width: 210mm; font-family: ${state.font}; margin: 0 !important; padding: 0 !important; position: absolute; top: 0; left: 0; overflow: hidden;">
+                        <div style="width: 35%; background: #0f172a; color: white; padding: 30px 18px; height: 296mm; box-sizing: border-box; margin: 0; overflow-y: auto;">
+                            <div style="font-size: 1.3rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.3rem; word-break: break-word;">${state.personal.name || 'Khushi Singh'}</div>
+                            <div style="font-size: 0.75rem; color: #818cf8; font-weight: 600; margin-bottom: 1rem; word-break: break-word;">${state.personal.title || 'Software Engineer'}</div>
+                            
+                            <div style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.4rem; word-break: break-all;"><i class="fa-solid fa-envelope"></i> ${state.personal.email || 'khushi.singh@example.com'}</div>
+                            <div style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.4rem;"><i class="fa-solid fa-phone"></i> ${state.personal.phone || '+91 98765 43210'}</div>
+                            <div style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 1rem;"><i class="fa-solid fa-location-dot"></i> ${state.personal.location || 'Mumbai, India'}</div>
+
+                            ${leftHtml}
+                        </div>
+                        <div style="width: 65%; padding: 32px 25px; background: white; height: 296mm; box-sizing: border-box; overflow: hidden;">
+                            ${creativeRightHtml}
+                        </div>
+                    </div>
+                `;
+            } else {
+                preview.innerHTML = `
+                    <div class="resume-name">${state.personal.name || 'Khushi Singh'}</div>
+                    <div class="resume-title">${state.personal.title || 'Software Engineer'}</div>
+                    <div class="text-slate-500 text-xs mb-4 flex flex-wrap items-center gap-4">
+                        <span><i class="fa-solid fa-envelope text-indigo-400"></i> ${state.personal.email || 'khushi.singh@example.com'}</span>
+                        <span><i class="fa-solid fa-phone text-indigo-400"></i> ${state.personal.phone || '+91 98765 43210'}</span>
+                        <span><i class="fa-solid fa-location-dot text-indigo-400"></i> ${state.personal.location || 'Mumbai, India'}</span>
+                    </div>
+                    ${standardSectionsHtml}
+                `;
+            }
+        }
+
+        function render() {
+            renderForm();
+            renderPreview();
+        }
+
+        document.getElementById('template-select').value = state.template;
+        document.getElementById('font-select').value = state.font;
+        document.getElementById('p-name').value = state.personal.name;
+        document.getElementById('p-title').value = state.personal.title;
+        document.getElementById('p-email').value = state.personal.email;
+        document.getElementById('p-phone').value = state.personal.phone;
+        document.getElementById('p-location').value = state.personal.location;
+        
+        render();
+    </script>
+</body>
+</html>

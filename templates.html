@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeAI - Professional Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .bg-mesh {
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,0.03) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(225,39%,30%,0.03) 0, transparent 50%);
+        }
+        .card-preview-container {
+            width: 210mm;
+            height: 296mm;
+            background: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(0.32);
+            transform-origin: top left;
+            pointer-events: none;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .tpl-modern { padding: 28px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-modern .resume-name { font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.1rem; letter-spacing: -1px;}
+        .tpl-modern .resume-title { font-size: 1rem; color: #6366f1; font-weight: 500; margin-bottom: 0.6rem;}
+        .tpl-modern .section-heading { font-size: 0.9rem; font-weight: 700; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.15rem; margin-top: 0.8rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.1em;}
+        .tpl-modern .section-content { color: #475569; font-size: 0.8rem; line-height: 1.35; text-align: justify; }
+        
+        .tpl-classic { padding: 28px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-classic .resume-name { font-size: 2rem; font-weight: 700; color: #111; text-align: center; border-bottom: 2px solid #111; padding-bottom: 0.6rem; margin-bottom: 0.4rem;}
+        .tpl-classic .section-heading { font-size: 0.95rem; font-weight: 700; color: #111; margin-top: 0.9rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 1px;}
+        .tpl-classic .section-content { color: #333; font-size: 0.8rem; line-height: 1.4; text-align: justify; }
+
+        .tpl-minimalist { padding: 28px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-minimalist .resume-name { font-size: 1.6rem; font-weight: 300; color: #18181b; margin-bottom: 0.1rem; letter-spacing: 1px;}
+        .tpl-minimalist .section-heading { font-size: 0.75rem; font-weight: 600; color: #18181b; margin-top: 0.9rem; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 1.5px;}
+        .tpl-minimalist .section-content { color: #52525b; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        .tpl-executive { padding: 28px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-executive .resume-name { font-size: 2.1rem; font-weight: 700; color: #09090b; margin-bottom: 0.1rem;}
+        .tpl-executive .section-heading { font-size: 0.9rem; font-weight: 700; color: #09090b; margin-top: 0.9rem; margin-bottom: 0.4rem; border-bottom: 1px solid #d4d4d8; padding-bottom: 0.15rem;}
+        .tpl-executive .section-content { color: #27272a; font-size: 0.8rem; line-height: 1.35; text-align: justify; }
+
+        .tpl-creative { 
+            padding: 0 !important; 
+            display: flex !important; 
+            height: 296mm !important; 
+            width: 210mm !important;
+            overflow: hidden !important; 
+            margin: 0 !important;
+        }
+        .tpl-creative .resume-name { font-size: 1.3rem; font-weight: 800; color: white; margin-bottom: 0.1rem; line-height: 1.2; }
+        .tpl-creative .section-heading { font-size: 0.75rem; font-weight: 700; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.1rem; margin-top: 0.7rem; margin-bottom: 0.3rem; text-transform: uppercase; }
+        .tpl-creative .section-content { color: #475569; font-size: 0.72rem; line-height: 1.3; text-align: justify; }
+
+        .tpl-codecraft { padding: 28px 36px; background: #fafafa; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-codecraft .resume-name { font-size: 1.8rem; font-weight: 700; color: #059669; margin-bottom: 0.1rem; }
+        .tpl-codecraft .section-heading { font-size: 0.85rem; font-weight: 700; color: #059669; border-left: 4px solid #059669; padding-left: 6px; margin-top: 0.9rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .tpl-codecraft .section-content { color: #1f2937; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        .tpl-startup { padding: 28px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-startup .resume-name { font-size: 2.2rem; font-weight: 900; color: #7c3aed; margin-bottom: 0.1rem; }
+        .tpl-startup .section-heading { font-size: 0.85rem; font-weight: 800; color: #7c3aed; background: #f3e8ff; padding: 3px 8px; border-radius: 6px; margin-top: 0.9rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .tpl-startup .section-content { color: #374151; font-size: 0.8rem; line-height: 1.35; text-align: justify; }
+
+        .tpl-academic { padding: 30px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; }
+        .tpl-academic .resume-name { font-size: 1.9rem; font-weight: 700; color: #0f2a4a; text-align: center; margin-bottom: 0.3rem; }
+        .tpl-academic .section-heading { font-size: 0.85rem; font-weight: 700; color: #0f2a4a; border-bottom: 1.5px solid #0f2a4a; padding-bottom: 0.1rem; margin-top: 0.8rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .tpl-academic .section-content { color: #1e293b; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        /* LaTeX Templates */
+        .latex-classic { padding: 32px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Times New Roman', serif; color: #111; }
+        .latex-classic .resume-name { font-size: 2.2rem; font-weight: bold; text-align: center; border-bottom: 1px solid #111; padding-bottom: 6px; margin-bottom: 0.4rem; }
+        .latex-classic .section-heading { font-size: 0.95rem; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #111; margin-top: 1rem; margin-bottom: 0.4rem; }
+        .latex-classic .section-content { color: #222; font-size: 0.82rem; line-height: 1.4; text-align: justify; }
+
+        .latex-modern { padding: 32px 36px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Roboto', sans-serif; color: #0f172a; }
+        .latex-modern .resume-name { font-size: 2.3rem; font-weight: 700; color: #1e3a8a; margin-bottom: 0.1rem; }
+        .latex-modern .section-heading { font-size: 0.9rem; font-weight: 700; color: #1e3a8a; border-bottom: 2px solid #1e3a8a; padding-bottom: 0.15rem; margin-top: 1rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .latex-modern .section-content { color: #334155; font-size: 0.8rem; line-height: 1.35; text-align: justify; }
+
+        .latex-minimal { padding: 32px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Inter', sans-serif; color: #27272a; }
+        .latex-minimal .resume-name { font-size: 1.8rem; font-weight: 300; letter-spacing: 2px; margin-bottom: 0.1rem; }
+        .latex-minimal .section-heading { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #d4d4d8; padding-bottom: 0.1rem; margin-top: 1rem; margin-bottom: 0.4rem; }
+        .latex-minimal .section-content { color: #3f3f46; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        .latex-executive { padding: 32px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Merriweather', serif; color: #1c1917; }
+        .latex-executive .resume-name { font-size: 2.2rem; font-weight: 700; text-align: center; margin-bottom: 0.2rem; }
+        .latex-executive .section-heading { font-size: 0.9rem; font-weight: 700; text-align: center; border-top: 1px solid #78716c; border-bottom: 1px solid #78716c; padding: 3px 0; margin-top: 1rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .latex-executive .section-content { color: #292524; font-size: 0.8rem; line-height: 1.4; text-align: justify; }
+
+        .latex-tech { padding: 32px; height: 296mm; box-sizing: border-box; overflow: hidden; font-family: 'Courier New', Courier, monospace; color: #065f46; background: #fdfdfd; }
+        .latex-tech .resume-name { font-size: 2rem; font-weight: bold; margin-bottom: 0.1rem; color: #065f46; }
+        .latex-tech .section-heading { font-size: 0.85rem; font-weight: bold; border-left: 3px solid #059669; padding-left: 8px; margin-top: 1rem; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .latex-tech .section-content { color: #111827; font-size: 0.78rem; line-height: 1.35; text-align: justify; }
+
+        .exp-item, .proj-item, .edu-item { margin-bottom: 0.6rem; }
+        .exp-header, .proj-header, .edu-header { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.85rem; font-weight: bold; color: #111; }
+        .exp-sub, .proj-sub, .edu-sub { font-size: 0.8rem; font-weight: 600; color: #334155; margin-bottom: 0.15rem; }
+        .exp-desc, .proj-desc, .edu-desc { font-size: 0.78rem; color: #475569; line-height: 1.35; white-space: pre-wrap; }
+    </style>
+</head>
+<body class="bg-mesh min-h-screen flex flex-col text-gray-800">
+
+    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-[1600px] mx-auto px-6 h-[72px] flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3" style="text-decoration: none;">
+                <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-200">
+                    <i class="fa-solid fa-file-signature text-lg"></i>
+                </div>
+                <span class="text-2xl font-extrabold text-gray-900 tracking-tight">Resume<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">AI.</span></span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-10 font-medium">
+                <a href="index.html" class="text-gray-500 hover:text-indigo-600 transition">Home</a>
+                <a href="templates.html" class="text-indigo-600 font-bold border-b-2 border-indigo-600 pb-1">Templates</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="handleGoogleSignIn()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full font-semibold transition shadow-md flex items-center gap-2 text-sm cursor-pointer">
+                    <i class="fa-brands fa-google"></i> Sign in
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="max-w-7xl mx-auto px-6 py-16 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+            All Recruiter-Approved <span class="text-indigo-600">Resume Templates</span>
+        </h1>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+            Explore professional templates with your live resume data.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pb-24 flex-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="templates-grid"></div>
+    </main>
+
+    <script>
+        let savedState = localStorage.getItem('resumeState');
+        let liveData = savedState ? JSON.parse(savedState) : {
+            personal: { 
+                name: 'Khushi Singh', 
+                title: 'Software Engineer', 
+                email: 'khushi.singh@example.com',
+                phone: '+91 98765 43210',
+                location: 'Mumbai, India'
+            },
+            educations: [
+                { school: 'University Institute', degree: 'B.Tech in Computer Science', duration: 'Graduated: May 2025 | CGPA: 8.8/10' }
+            ],
+            experiences: [
+                { role: 'Retail Value Executive', company: 'ABC Solutions', duration: 'Jan 2022 - Current', desc: '• Managed daily sales operations and increased customer retention by 18%.' }
+            ],
+            projects: [
+                { name: 'ResumeAI SaaS Builder', tech: 'Next.js, Tailwind CSS, FastAPI', desc: '• Built full-stack resume builder with live preview studio.' }
+            ],
+            sections: [
+                { title: 'Career Objective / Summary', content: 'Results-driven Software Engineer with over 3+ years of experience designing and developing scalable web applications.', isVisible: true },
+                { title: 'Technical Skills', content: '• JavaScript, TypeScript, React, Next.js, Python, Node.js', isVisible: true },
+                { title: 'Languages', content: '• English, Hindi, Marathi', isVisible: true },
+                { title: 'Declaration', content: 'I hereby declare that the information furnished above is true to the best of my knowledge.', isVisible: true }
+            ]
+        };
+
+        const templates = [
+            { id: 'tpl-modern', name: 'Modern Pro', desc: 'Clean and tech-friendly.' },
+            { id: 'tpl-classic', name: 'Classic Corporate', desc: 'Traditional serif layout.' },
+            { id: 'tpl-minimalist', name: 'Minimalist', desc: 'Simple and straight to point.' },
+            { id: 'tpl-executive', name: 'Executive', desc: 'Built for senior leaders.' },
+            { id: 'tpl-creative', name: 'Creative Split', desc: 'Two-column color layout with dark sidebar.' },
+            { id: 'tpl-codecraft', name: 'CodeCraft', desc: 'Optimized for engineers.' },
+            { id: 'tpl-startup', name: 'Bold Startup', desc: 'Stand out with vibrant styling.' },
+            { id: 'tpl-academic', name: 'Academic Structured', desc: 'Clean professional layout.' },
+            { id: 'latex-classic', name: 'LaTeX Classic', desc: 'Traditional Computer Modern style.' },
+            { id: 'latex-modern', name: 'LaTeX Modern', desc: 'Clean blue-accented professional layout.' },
+            { id: 'latex-minimal', name: 'LaTeX Minimalist', desc: 'Ultra-clean typography and spacing.' },
+            { id: 'latex-executive', name: 'LaTeX Executive', desc: 'Formal centered academic layout.' },
+            { id: 'latex-tech', name: 'LaTeX Tech', desc: 'Monospace aesthetic for engineers.' }
+        ];
+
+        function renderTemplatesGrid() {
+            const grid = document.getElementById('templates-grid');
+            grid.innerHTML = '';
+
+            let summaryHtml = '';
+            let languagesHtml = '';
+            let declarationHtml = '';
+            let otherSections = [];
+
+            liveData.sections.forEach(sec => {
+                if (sec.isVisible) {
+                    const titleLower = sec.title.toLowerCase();
+                    if (titleLower.includes('summary') || titleLower.includes('objective')) {
+                        summaryHtml += `<div class="section-heading">${sec.title}</div><div class="section-content whitespace-pre-wrap">${sec.content}</div>`;
+                    } else if (titleLower.includes('language')) {
+                        languagesHtml += `<div class="section-heading">${sec.title}</div><div class="section-content whitespace-pre-wrap">${sec.content}</div>`;
+                    } else if (titleLower.includes('declaration')) {
+                        declarationHtml += `<div class="section-heading">${sec.title}</div><div class="section-content whitespace-pre-wrap">${sec.content}</div>`;
+                    } else {
+                        otherSections.push(sec);
+                    }
+                }
+            });
+
+            let eduHtml = '';
+            if (liveData.educations && liveData.educations.length > 0) {
+                eduHtml += `<div class="section-heading">Education</div>`;
+                liveData.educations.forEach(edu => {
+                    eduHtml += `
+                        <div class="edu-item">
+                            <div class="edu-header">
+                                <span style="font-weight: 700; color: #111;">${edu.school}</span>
+                                <span style="font-weight: 500; font-size: 0.75rem; color: #555;">${edu.duration}</span>
+                            </div>
+                            <div class="edu-sub" style="font-weight: 600; color: #334155;">${edu.degree}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            let expHtml = '';
+            if (liveData.experiences && liveData.experiences.length > 0) {
+                expHtml += `<div class="section-heading">Professional Experience</div>`;
+                liveData.experiences.forEach(exp => {
+                    expHtml += `
+                        <div class="exp-item">
+                            <div class="exp-header">
+                                <span style="font-weight: 700; color: #111;">${exp.role}</span>
+                                <span style="font-weight: 500; font-size: 0.75rem; color: #555;">${exp.duration}</span>
+                            </div>
+                            <div class="exp-sub" style="font-weight: 600; color: #334155;">${exp.company}</div>
+                            <div class="exp-desc">${exp.desc}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            let projHtml = '';
+            if (liveData.projects && liveData.projects.length > 0) {
+                projHtml += `<div class="section-heading">Projects</div>`;
+                liveData.projects.forEach(proj => {
+                    projHtml += `
+                        <div class="proj-item">
+                            <div class="proj-header">
+                                <span style="font-weight: 700; color: #111;">${proj.name}</span>
+                            </div>
+                            <div class="proj-sub" style="font-weight: 600; color: #334155;">${proj.tech}</div>
+                            <div class="proj-desc">${proj.desc}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            let restSectionsHtml = '';
+            otherSections.forEach(sec => {
+                restSectionsHtml += `<div class="section-heading">${sec.title}</div><div class="section-content whitespace-pre-wrap">${sec.content}</div>`;
+            });
+
+            let fullSectionsHtml = summaryHtml + eduHtml + expHtml + projHtml + restSectionsHtml + languagesHtml + declarationHtml;
+
+            templates.forEach(tpl => {
+                let innerHtml = '';
+
+                if (tpl.id === 'tpl-creative') {
+                    let leftHtml = '';
+                    if (languagesHtml) {
+                        leftHtml += `<div style="font-size: 0.75rem; font-weight: 700; color: #818cf8; border-bottom: 1px solid #334155; padding-bottom: 0.1rem; margin-top: 0.8rem; margin-bottom: 0.3rem; text-transform: uppercase;">Languages</div><div style="color: #cbd5e1; font-size: 0.7rem; line-height: 1.35; white-space: pre-wrap;">${liveData.sections.find(s => s.title.toLowerCase().includes('language'))?.content || ''}</div>`;
+                    }
+                    liveData.sections.forEach(sec => {
+                        if (sec.isVisible && sec.title.toLowerCase().includes('skill')) {
+                            leftHtml += `<div style="font-size: 0.75rem; font-weight: 700; color: #818cf8; border-bottom: 1px solid #334155; padding-bottom: 0.1rem; margin-top: 0.8rem; margin-bottom: 0.3rem; text-transform: uppercase;">${sec.title}</div><div style="color: #cbd5e1; font-size: 0.7rem; line-height: 1.35; white-space: pre-wrap;">${sec.content}</div>`;
+                        }
+                    });
+
+                    let creativeRightHtml = summaryHtml + eduHtml + expHtml + projHtml + restSectionsHtml + declarationHtml;
+
+                    innerHtml = `
+                        <div style="display: flex; height: 296mm; width: 210mm; font-family: ${liveData.font || "'Poppins', sans-serif"};">
+                            <div style="width: 35%; background: #0f172a; color: white; padding: 30px 18px; height: 296mm; box-sizing: border-box;">
+                                <div style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.3rem;">${liveData.personal.name}</div>
+                                <div style="font-size: 0.75rem; color: #818cf8; font-weight: 600; margin-bottom: 1rem;">${liveData.personal.title}</div>
+                                <div style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.4rem;">✉️ ${liveData.personal.email}</div>
+                                <div style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.4rem;">📞 ${liveData.personal.phone}</div>
+                                <div style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 1rem;">📍 ${liveData.personal.location}</div>
+                                ${leftHtml}
+                            </div>
+                            <div style="width: 65%; padding: 32px 25px; background: white; height: 296mm; box-sizing: border-box; overflow: hidden;">
+                                ${creativeRightHtml}
+                            </div>
+                        </div>
+                    `;
+                } else if (tpl.id === 'latex-tech') {
+                    innerHtml = `
+                        <div style="padding: 32px; height: 296mm; box-sizing: border-box; font-family: 'Courier New', monospace; color: #065f46; background: #fdfdfd;">
+                            <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.1rem;">${liveData.personal.name}</div>
+                            <div style="font-size: 0.85rem; margin-bottom: 0.5rem;">// ${liveData.personal.title}</div>
+                            <div style="font-size: 0.75rem; margin-bottom: 0.8rem;">✉️ ${liveData.personal.email} &nbsp;|&nbsp; 📞 ${liveData.personal.phone} &nbsp;|&nbsp; 📍 ${liveData.personal.location}</div>
+                            ${fullSectionsHtml}
+                        </div>
+                    `;
+                } else {
+                    innerHtml = `
+                        <div class="${tpl.id}" style="font-family: ${liveData.font || "'Poppins', sans-serif"}">
+                            <div class="resume-name">${liveData.personal.name}</div>
+                            <div class="resume-title">${liveData.personal.title}</div>
+                            <div class="text-slate-500 text-xs mb-4 flex flex-wrap items-center gap-4">
+                                <span>✉️ ${liveData.personal.email}</span>
+                                <span>📞 ${liveData.personal.phone}</span>
+                                <span>📍 ${liveData.personal.location}</span>
+                            </div>
+                            ${fullSectionsHtml}
+                        </div>
+                    `;
+                }
+
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col">
+                        <div class="h-64 bg-slate-100 p-4 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
+                            <div class="card-preview-container">
+                                ${innerHtml}
+                            </div>
+                        </div>
+                        <div class="p-5 flex justify-between items-center bg-white mt-auto">
+                            <div>
+                                <h3 class="text-base font-bold text-gray-900">${tpl.name}</h3>
+                                <p class="text-[11px] text-gray-500">${tpl.desc}</p>
+                            </div>
+                            <button onclick="selectTemplate('${tpl.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-semibold text-xs transition shadow-md cursor-pointer whitespace-nowrap">
+                                Use Template
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function selectTemplate(tplName) {
+            localStorage.setItem('selectedTemplate', tplName);
+            window.location.href = 'builder.html';
+        }
+
+        function handleGoogleSignIn() {
+            const email = prompt("Enter your Google account email to sign in:");
+            if (email) {
+                alert(`Successfully signed in with Google as ${email}`);
+            }
+        }
+
+        renderTemplatesGrid();
+    </script>
+</body>
+</html>

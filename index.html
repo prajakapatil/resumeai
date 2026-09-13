@@ -5,10 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResumeAI - Build Your Dream Resume</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase App & Auth SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, OAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Apne Firebase project ki details yahan replace karein
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+        const microsoftProvider = new OAuthProvider('microsoft.com');
+
+        window.openAuthModal = function() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+        }
+
+        window.closeAuthModal = function() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        window.signInWithGoogle = async function() {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+                alert(`Welcome, ${user.displayName}! Successfully signed in with Google.`);
+                closeAuthModal();
+                updateNavUser(user);
+            } catch (error) {
+                console.error("Google Auth Error:", error);
+                alert("Google Sign-in failed: " + error.message);
+            }
+        }
+
+        window.signInWithMicrosoft = async function() {
+            try {
+                const result = await signInWithPopup(auth, microsoftProvider);
+                const user = result.user;
+                alert(`Welcome, ${user.displayName}! Successfully signed in with Microsoft.`);
+                closeAuthModal();
+                updateNavUser(user);
+            } catch (error) {
+                console.error("Microsoft Auth Error:", error);
+                alert("Microsoft Sign-in failed: " + error.message);
+            }
+        }
+
+        function updateNavUser(user) {
+            const navRight = document.getElementById('nav-auth-container');
+            if (user) {
+                navRight.innerHTML = `
+                    <div class="flex items-center gap-3 bg-slate-100 px-4 py-2 rounded-full">
+                        <img src="${user.photoURL || 'https://via.placeholder.com/32'}" class="w-7 h-7 rounded-full" alt="User">
+                        <span class="text-xs font-bold text-slate-700">${user.displayName}</span>
+                        <button onclick="handleLogout()" class="text-xs text-red-500 font-semibold hover:underline ml-2">Logout</button>
+                    </div>
+                `;
+            }
+        }
+
+        window.handleLogout = async function() {
+            await signOut(auth);
+            location.reload();
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                updateNavUser(user);
+            }
+        });
+    </script>
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Poppins', sans-serif; }
         .mesh-bg {
             background-color: #ffffff;
             background-image: 
@@ -28,9 +108,9 @@
             <span class="text-2xl font-extrabold text-gray-900 tracking-tight">Resume<span class="text-indigo-600">AI.</span></span>
         </a>
         
-        <div class="flex gap-4 items-center">
-            <button onclick="handleGoogleSignIn()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-full font-semibold transition shadow-lg shadow-indigo-200 flex items-center gap-2">
-                <i class="fa-brands fa-google"></i> Sign in
+        <div id="nav-auth-container" class="flex gap-4 items-center">
+            <button onclick="openAuthModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-full font-semibold transition shadow-lg shadow-indigo-200 flex items-center gap-2 cursor-pointer text-sm" style="text-decoration: none;">
+                <i class="fa-solid fa-right-to-bracket"></i> Sign in
             </button>
         </div>
     </nav>
@@ -50,34 +130,45 @@
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 items-center">
-            <a href="templates.html" class="bg-indigo-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-indigo-700 transition shadow-xl shadow-indigo-200 flex items-center justify-center gap-3 transform hover:-translate-y-0.5">
+            <a href="templates.html" class="bg-indigo-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-indigo-700 transition shadow-xl shadow-indigo-200 flex items-center justify-center gap-3 transform hover:-translate-y-0.5" style="text-decoration: none;">
                 Get Started Now <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
-
-        <div class="mt-28">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Trusted by ambitious professionals worldwide</p>
-            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-40 grayscale text-xl font-extrabold tracking-wider">
-                <span>GOOGLE</span>
-                <span>MICROSOFT</span>
-                <span>AMAZON</span>
-                <span>NETFLIX</span>
-                <span>META</span>
-            </div>
-        </div>
     </header>
+
+    <!-- Professional Auth Modal with Google & Microsoft -->
+    <div id="auth-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-slate-100 relative transform transition-all">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center transition cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 bg-indigo-600 rounded-2xl mx-auto flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-200 mb-4">
+                    <i class="fa-solid fa-file-signature"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Welcome to ResumeAI</h3>
+                <p class="text-sm text-slate-500 mt-1">Sign in securely with your preferred account</p>
+            </div>
+
+            <div class="space-y-4">
+                <button onclick="signInWithGoogle()" class="w-full py-3.5 px-4 border border-slate-200 rounded-2xl font-semibold text-slate-700 hover:bg-slate-50 transition flex items-center justify-center gap-3 shadow-sm cursor-pointer">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.18v3.15C3.15 21.32 7.23 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.6H1.18C.43 8.12 0 9.83 0 12s.43 3.88 1.18 5.4l4.09-3.16z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.15 2.68 1.18 6.6l4.09 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+                    Continue with Google
+                </button>
+
+                <button onclick="signInWithMicrosoft()" class="w-full py-3.5 px-4 border border-slate-200 rounded-2xl font-semibold text-slate-700 hover:bg-slate-50 transition flex items-center justify-center gap-3 shadow-sm cursor-pointer">
+                    <svg class="w-5 h-5" viewBox="0 0 23 23"><path fill="#f3f3f3" d="M0 0h23v23H0z"/><path fill="#f35325" d="M1 1h10v10H1z"/><path fill="#81bc06" d="M12 1h10v10H12z"/><path fill="#05a6f0" d="M1 12h10v10H1z"/><path fill="#ffba08" d="M12 12h10v10H12z"/></svg>
+                    Continue with Microsoft
+                </button>
+            </div>
+
+            <p class="text-xs text-center text-slate-400 mt-6">By continuing, you agree to ResumeAI's Terms of Service & Privacy Policy.</p>
+        </div>
+    </div>
 
     <footer class="bg-white border-t border-gray-200 py-12 text-center text-sm text-gray-400">
         <p>&copy; 2026 ResumeAI. All rights reserved. Built for high performance.</p>
     </footer>
-
-    <script>
-        function handleGoogleSignIn() {
-            const email = prompt("Enter your Google account email to sign in:");
-            if (email) {
-                alert(`Successfully signed in with Google as ${email}`);
-            }
-        }
-    </script>
 </body> 
 </html>

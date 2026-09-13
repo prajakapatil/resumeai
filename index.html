@@ -13,14 +13,14 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, OAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Apne Firebase project ki details yahan replace karein
+        // Aapka apna asli Firebase Configuration
         const firebaseConfig = {
-            apiKey: "YOUR_FIREBASE_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSy...",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "...",
+            appId: "..."
         };
 
         const app = initializeApp(firebaseConfig);
@@ -69,7 +69,7 @@
                     <div class="flex items-center gap-3 bg-slate-100 px-4 py-2 rounded-full">
                         <img src="${user.photoURL || 'https://via.placeholder.com/32'}" class="w-7 h-7 rounded-full" alt="User">
                         <span class="text-xs font-bold text-slate-700">${user.displayName}</span>
-                        <button onclick="handleLogout()" class="text-xs text-red-500 font-semibold hover:underline ml-2">Logout</button>
+                        <button onclick="handleLogout()" class="text-xs text-red-500 font-semibold hover:underline ml-2 cursor-pointer">Logout</button>
                     </div>
                 `;
             }
@@ -136,7 +136,7 @@
         </div>
     </header>
 
-    <!-- Professional Auth Modal with Google & Microsoft -->
+    <!-- Professional Auth Modal -->
     <div id="auth-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-slate-100 relative transform transition-all">
             <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center transition cursor-pointer">
